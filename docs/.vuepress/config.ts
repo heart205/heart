@@ -6,10 +6,20 @@
 import { defineUserConfig } from 'vuepress'
 import { setupDefine } from './plugin/readEnv'
 import { serviceTheme } from './plugin/service'
+const { path } = require('@vuepress/utils')
+const {
+  registerComponentsPlugin,
+} = require('@vuepress/plugin-register-components')
+
 export default defineUserConfig({
   lang: 'zh-CN',
   title: 'heart website',
   description: 'heart website',
-  plugins: [serviceTheme],
   define: setupDefine(),
+  plugins: [
+    serviceTheme,
+    registerComponentsPlugin({
+      componentsDir: path.resolve(__dirname, './components'),
+    }),
+  ],
 })

@@ -78,7 +78,7 @@ function setupSideBar() {
   const total = ['H1', 'H2', 'H3', 'H4', 'H5']
   const main = document.querySelector('main.flex-1')
   if (
-    main.hasChildNodes() &&
+    main && main.hasChildNodes() &&
     main.children[main.children.length - 1].hasChildNodes()
   ) {
     const titleCollection = main.children[main.children.length - 1].children
