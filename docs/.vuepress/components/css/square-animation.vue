@@ -15,7 +15,7 @@
 </template>
 
 <style lang="less" scoped>
-// 不同的行进行延迟 不同的列注意帧率
+// 不同的行进行延迟 不同 的列注意帧率
 * {
   margin: 0;
   padding: 0;
@@ -23,6 +23,7 @@
 
 @background-color: #f51951;
 @name: ~'square-rotate';
+
 
 html,
 body {
@@ -32,10 +33,9 @@ body {
 }
 
 .container {
-  display: inline-block;
-  padding-right: 40px;
   margin: auto;
 }
+
 
 .animation-square-loop(@i, @n) when (@i <= @n) {
   &:nth-child(@{i}) {
@@ -48,6 +48,8 @@ body {
   &:nth-child(@{index}) {
     span {
       .animation-square-loop(1,4);
+
+      animation-delay: ~'@{index}00ms' !important;
     }
   }
   .animation-loop(@index + 1, @n);
@@ -62,7 +64,6 @@ body {
     height: 36px;
     margin: 4px;
     background-color: @background-color;
-
     border-radius: 2px;
   }
   .animation-loop(1,3);
@@ -114,4 +115,5 @@ body {
     transform: translate(40px) rotate(-90deg);
   }
 }
+
 </style>
