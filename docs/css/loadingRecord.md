@@ -6,5 +6,5 @@ title: loading 方案整合
 
    <css-square-animation />
 
-@[code vue](../../docs/.vuepress/components/css/square-animation.vue)
+@[code vue](../../docs/.vuepress/components/magic/square-animation.vue)
 

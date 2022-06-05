@@ -2,6 +2,8 @@
 title: button components
 ---
 
-<test-button>12312</test-button>
+<test-button></test-button>
 
-<!-- @[code vue](../../docs/.vuepress/components/test/button.vue) -->
+
+
+@[code vue](../../docs/.vuepress/components/test/button.vue)
