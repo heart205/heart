@@ -4,21 +4,9 @@ title: 垂直居中方案
 
 ## flex margin
 
-```html
-<div class="container">
-  <div class="box"></div>
-</div>
-```
+<vertical-align-flex-vertical />
 
-```css
-.container {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-}
-.box {
-  width: 10px;
-  height: 10px;
-  margin: auto;
-}
-```
+@[code{3-99} vue](../../docs/.vuepress/components/vertical-align/flex-vertical.vue)
+
+
+<hr />

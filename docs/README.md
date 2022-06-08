@@ -6,4 +6,6 @@ layout: CustomLayout
 
 - [css](./css)
 
+- [vue](./vue/)
+
 - [components](./components/)
