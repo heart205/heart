@@ -16,10 +16,7 @@ function handleChangeChecked() {
 
 <template>
   <div class="p-20">
-    <Switch
-      :disabled="switchProps.disabled"
-      v-model:checked="checked"
-    />
+    <Switch :disabled="switchProps.disabled" v-model:checked="checked" />
 
     <div class="m-10">
       <Button @click="handleChangeChecked"> 禁止选中 </Button>
