@@ -9,3 +9,5 @@ layout: CustomLayout
 - [vue](./vue/)
 
 - [components](./components/)
+
+- [algorithm](./algorithm/)

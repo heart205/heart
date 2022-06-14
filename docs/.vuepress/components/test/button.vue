@@ -28,9 +28,11 @@ const toggleClick = ref<boolean>(false)
     margin: 0 1em;
   }
 }
+
 .p-20 {
   padding: 20px;
-  & > span {
+
+  &>span {
     margin: 0 10px;
     vertical-align: middle;
   }

@@ -50,7 +50,6 @@ function checkedToStatus(val) {
   status.value = val
 }
 
-
 function checkValue(bool: boolean) {
   if (checkedRef.value) {
     bool
@@ -72,8 +71,8 @@ function handleToggleStatus() {
 </script>
 
 <template>
-  <div :class="'switch-wrapper'" ref="checkedRef" :disabled="props.disabled">
-    <div class="switch-toggle" @click="handleToggleStatus"></div>
+  <div :class="'switch-wrapper'" ref="checkedRef" :disabled="props.disabled" @click="handleToggleStatus">
+    <div class="switch-toggle"></div>
   </div>
 </template>
 
@@ -88,6 +87,7 @@ function handleToggleStatus() {
   font-size: 14px;
   vertical-align: middle;
   transition: background-color 0.3s ease-in-out, opacity 0.2s ease-in-out;
+  cursor: pointer;
   .switch-toggle {
     display: inline-block;
     height: calc(100% - 4px);
@@ -99,7 +99,6 @@ function handleToggleStatus() {
     left: 2px;
     transform: translateY(-50%);
     transition: all 0.18s ease-in-out;
-    cursor: pointer;
   }
   &[checked] {
     background-color: var(--primary-color, #38ae70);

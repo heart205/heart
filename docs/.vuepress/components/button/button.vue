@@ -1,16 +1,12 @@
 <template>
-  <button
-    :class="['btn', clickType, props.disabled ? 'btn-disabled' : '']"
-    ref="btn"
-    @click="btnClick"
-    :disabled="disabled"
-  >
+  <button :class="['btn', clickType, props.disabled ? 'btn-disabled' : '']" ref="btn" @click="btnClick"
+    :disabled="disabled">
     <slot></slot>
   </button>
 </template>
 
 <script lang="ts" setup>
-import { defineEmits, defineProps, onMounted, ref } from 'vue'
+import {defineEmits, defineProps, onMounted, ref} from 'vue'
 type typeClick = 'primary' | 'dashed' | 'danger' | 'default' | 'flat'
 
 type classBtnType = typeClick extends typeClick ? `btn-${typeClick}` : never
@@ -94,11 +90,9 @@ onMounted(() => {
     left: var(--x, 0);
     top: var(--y, 0);
     pointer-events: none;
-    background-image: radial-gradient(
-      circle,
-      var(--wave-color, #fff) 10%,
-      transparent 10.01%
-    );
+    background-image: radial-gradient(circle,
+        var(--wave-color, #fff) 10%,
+        transparent 10.01%);
     background-repeat: no-repeat;
     background-position: 50%;
     // scale关键
@@ -146,6 +140,7 @@ onMounted(() => {
 
 .btn-flat {
   transition: color 0.3s, background-color 0.5s;
+
   &:not([disabled]):hover {
     --btn-color: #3ecd79a8;
     color: #3ecd79a8;
