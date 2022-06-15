@@ -71,7 +71,12 @@ function handleToggleStatus() {
 </script>
 
 <template>
-  <div :class="'switch-wrapper'" ref="checkedRef" :disabled="props.disabled" @click="handleToggleStatus">
+  <div
+    :class="'switch-wrapper'"
+    ref="checkedRef"
+    :disabled="props.disabled"
+    @click="handleToggleStatus"
+  >
     <div class="switch-toggle"></div>
   </div>
 </template>

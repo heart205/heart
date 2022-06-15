@@ -24,7 +24,6 @@
 @background-color: #f51951;
 @name: ~'square-rotate';
 
-
 html,
 body {
   height: 100%;
@@ -35,7 +34,6 @@ body {
 .container {
   margin: auto;
 }
-
 
 .animation-square-loop(@i, @n) when (@i <= @n) {
   &:nth-child(@{i}) {
@@ -115,5 +113,4 @@ body {
     transform: translate(40px) rotate(-90deg);
   }
 }
-
 </style>

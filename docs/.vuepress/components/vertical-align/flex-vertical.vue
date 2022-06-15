@@ -13,7 +13,7 @@
   display: flex;
 }
 .box {
-  width:  50px;
+  width: 50px;
   height: 50px;
   margin: auto;
   background-color: pink;
