@@ -8,9 +8,14 @@ title: '安卓'
 
 [textView](./textView.md)
 
-
-
 [Drawable](./Drawable.md)
 
-
 [Button](./button.md)
+
+[progress](./progressBar.md)
+
+[imageView](./imageView.md)
+
+[editText](./editText.md)
+
+[notification](./notification.md)
