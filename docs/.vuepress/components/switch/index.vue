@@ -93,27 +93,58 @@ function handleToggleStatus() {
   vertical-align: middle;
   transition: background-color 0.3s ease-in-out, opacity 0.2s ease-in-out;
   cursor: pointer;
+
   .switch-toggle {
     display: inline-block;
     height: calc(100% - 4px);
     width: calc(50% - 4px);
     background-color: #fff;
-    border-radius: 50%;
+    border-radius: 1.2em;
     position: absolute;
     top: 50%;
     left: 2px;
     transform: translateY(-50%);
     transition: all 0.18s ease-in-out;
+
+    &::after {
+      content: '';
+      width: 40%;
+      height: 20%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 0.8em;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    &:active {
+      padding: 0 0.5em;
+
+      &::after {
+        background-color: var(--primary-color, #38ae70);
+      }
+    }
   }
+
   &[checked] {
     background-color: var(--primary-color, #38ae70);
+
     .switch-toggle {
       left: calc(50% + 2px);
     }
+
+    .switch-toggle {
+      &:active {
+        transform: translateY(-50%) translateX(-1em);
+      }
+    }
   }
+
   &[disabled='true'] {
     cursor: not-allowed;
     opacity: 0.7;
+
     .switch-toggle {
       cursor: inherit;
     }
