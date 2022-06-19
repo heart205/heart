@@ -19,3 +19,11 @@ title: '安卓'
 [editText](./editText.md)
 
 [notification](./notification.md)
+
+[toolBar](./toolBar.md)
+
+[dialog](./dialog.md)
+
+[popupWindow](./popupWindow.md)
+
+[LinearLayout](./LinearLayout.md)

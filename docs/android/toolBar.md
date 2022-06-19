@@ -2,7 +2,8 @@
 title: 'toolBar'
 ---
 
-在
+需要提前在`theme` 中取消原有的`parent`的tabBar 设置为 `android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"`
+
 
 使用:
 
