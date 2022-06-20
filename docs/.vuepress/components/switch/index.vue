@@ -5,12 +5,25 @@ export default {
 </script>
 <script setup lang="ts">
 // switch
-import { nextTick, ref, defineProps, defineEmits, useAttrs, watch } from 'vue'
+import {
+  nextTick,
+  ref,
+  defineProps,
+  defineEmits,
+  useAttrs,
+  watch,
+  reactive,
+} from 'vue'
 const status = ref<boolean>(false)
+type size = 'mini' | 'small' | 'large'
 const props = defineProps({
   disabled: {
     type: Boolean,
     default: false,
+  },
+  size: {
+    type: String as PropType<size>,
+    default: 'small',
   },
 })
 
@@ -19,6 +32,47 @@ const checkedRef = ref<HTMLDivElement>(null!)
 const attrs: { checked?: boolean } = useAttrs()
 
 const isHaveChecked = ref<boolean>(false)
+
+const style = reactive<{
+  '--fontSize': string
+}>({})
+
+function changeSize(size) {
+  switch (size) {
+    case 'mini':
+      style['--fontSize'] = '12px'
+      break
+    case 'small':
+      style['--fontSize'] = '14px'
+      break
+    case 'default':
+      style['--fontSize'] = '16px'
+      break
+  }
+}
+
+function checkedToStatus(val) {
+  status.value = val
+}
+
+function checkValue(bool: boolean) {
+  if (checkedRef.value) {
+    bool
+      ? checkedRef.value.setAttribute('checked', '')
+      : checkedRef.value.removeAttribute('checked')
+  }
+}
+
+function handleToggleStatus() {
+  if (props.disabled) return
+  if (isHaveChecked.value) {
+    checkedToStatus(!status.value)
+    emit('update:checked', !attrs.checked)
+  } else {
+    checkedToStatus(!status.value)
+    emit('checked', !status.value)
+  }
+}
 
 watch(
   () => attrs.checked,
@@ -46,34 +100,20 @@ watch(
   }
 )
 
-function checkedToStatus(val) {
-  status.value = val
-}
-
-function checkValue(bool: boolean) {
-  if (checkedRef.value) {
-    bool
-      ? checkedRef.value.setAttribute('checked', '')
-      : checkedRef.value.removeAttribute('checked')
-  }
-}
-
-function handleToggleStatus() {
-  if (props.disabled) return
-  if (isHaveChecked.value) {
-    checkedToStatus(!status.value)
-    emit('update:checked', !attrs.checked)
-  } else {
-    checkedToStatus(!status.value)
-    emit('checked', !status.value)
-  }
-}
+watch(
+  () => props.size,
+  (newVal) => {
+    changeSize(newVal)
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
   <div
     :class="'switch-wrapper'"
     ref="checkedRef"
+    :style="style"
     :disabled="props.disabled"
     @click="handleToggleStatus"
   >
@@ -89,7 +129,7 @@ function handleToggleStatus() {
   background-color: #ddd;
   border-radius: 24px;
   position: relative;
-  font-size: 14px;
+  font-size: var(--fontSize, 14px);
   vertical-align: middle;
   transition: background-color 0.3s ease-in-out, opacity 0.2s ease-in-out;
   cursor: pointer;
@@ -119,8 +159,7 @@ function handleToggleStatus() {
     }
 
     &:active {
-      padding: 0 0.5em;
-
+      padding: 0 0.3em;
       &::after {
         background-color: var(--primary-color, #38ae70);
       }
@@ -136,7 +175,7 @@ function handleToggleStatus() {
 
     .switch-toggle {
       &:active {
-        transform: translateY(-50%) translateX(-1em);
+        transform: translateY(-50%) translateX(-0.6em);
       }
     }
   }
@@ -144,9 +183,15 @@ function handleToggleStatus() {
   &[disabled='true'] {
     cursor: not-allowed;
     opacity: 0.7;
-
     .switch-toggle {
       cursor: inherit;
+      &:active {
+        padding: 0;
+        transform: translateY(-50%);
+        &::after {
+          background-color: inherit;
+        }
+      }
     }
   }
 }

@@ -13,3 +13,5 @@ title: components
 - [button](./button.md)
 
 - [switch](./switch.md)
+
+- [slider](./slider.md)
