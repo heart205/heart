@@ -14,7 +14,6 @@ title: 'toolBar'
         android:layout_height="?android:attr/actionBarSize"
         android:accessibilityPaneTitle="@string/marquee"
         android:background="#ff0023a1"
-        android:gravity="center"
         app:logo="@drawable/ic_launcher_background"
         app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
         app:subtitle="副标题"

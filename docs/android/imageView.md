@@ -39,3 +39,40 @@ scaleType: 缩放类型
             android:scaleType="fitCenter"
             android:src="@drawable/avatar" />
 ```
+
+## ImageView 监听事件
+
+添加 clickable 使得图片可以被点击
+
+```xml
+<ImageView
+            android:id="@+id/add_click"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="12dp"
+            android:adjustViewBounds="true"
+            android:clickable="true"
+            android:contentDescription="@string/add_todo_list"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_baseline_add_24" />
+```
+
+在`MainActivity` 中添加监听事件
+
+```java
+    public void initView(Context ctx) {
+        ImageView imageView = findViewById(R.id.add_click);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e(tag, "click add task detail");
+                // 添加任务详情 跳转另外的页面
+                Intent intent = new Intent();
+                intent.setClass(ctx, AddTodoTask.class);
+                startActivity(intent);
+            }
+        });
+    }
+```
