@@ -2,6 +2,7 @@
  * @author heart
  * @description 右边侧边栏插件以及高亮
  * @Date 2022-07-02
+ * TODO: 添加防抖函数
  */
 
 import {
@@ -16,6 +17,8 @@ import {
 import { usePageData } from '@vuepress/client'
 
 import { useRoute, useRouter } from 'vue-router'
+
+import { debounce } from '../../utils/index'
 
 import './rightSideBar.css'
 
@@ -106,7 +109,7 @@ export default defineComponent({
       }
     )
 
-    const scrollEl = () => {
+    const scrollEl = debounce(() => {
       if (pageHeight.length === 0) return
       const heightTop = window.scrollY + 55
       if (heightTop < pageHeight[0]) {
@@ -124,7 +127,7 @@ export default defineComponent({
       if (heightTop > pageHeight[pageHeight.length - 1]) {
         setOutLineOffset(pageHeight.length - 1)
       }
-    }
+    }, 300)
 
     onMounted(() => {
       window.addEventListener('scroll', scrollEl, false)
@@ -135,7 +138,7 @@ export default defineComponent({
     })
 
     const handleToLink = (value) => {
-      router.push(`#${value.title}`)
+      router.push(`#${value.slug}`)
     }
 
     const loop = (value: PageHeader) => {

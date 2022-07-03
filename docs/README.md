@@ -14,4 +14,8 @@ layout: CustomLayout
 
 - [vue](./vue)
 
+- [vuePress](./vuepress/)
+
+- [react](./react)
+
 - [android](./android/)

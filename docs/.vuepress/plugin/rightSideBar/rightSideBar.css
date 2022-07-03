@@ -1,4 +1,3 @@
-
 .fixed {
   position: fixed;
   right: 0;
@@ -10,7 +9,6 @@
   width: 10%;
   padding: 0 6px;
 }
-
 
 .right-side-title {
   font-weight: 600;
@@ -28,21 +26,21 @@
 .right-side-body {
   color: #585260;
   cursor: pointer;
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   white-space: nowrap;
   text-overflow: ellipsis;
   font-size: 14px;
 }
 
 .right-side-body:hover {
-   color: var(--c-text-accent);
+  color: var(--c-text-accent);
 }
 
 .outline {
   width: 1px;
-  height: 17px;
-  position:absolute;
+  height: 18px;
+  position: absolute;
   background-color: var(--c-text-accent);
   left: -1px;
-  transition: all .12s ease-out;
+  transition: all 0.12s ease-out;
 }
