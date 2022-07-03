@@ -17,7 +17,7 @@ import { usePageData } from '@vuepress/client'
 
 import { useRoute, useRouter } from 'vue-router'
 
-import { debounce } from '../../utils/index'
+import { throttle } from '../../utils/index'
 
 import './rightSideBar.css'
 
@@ -108,9 +108,9 @@ export default defineComponent({
       }
     )
 
-    const scrollEl = debounce(() => {
+    const scrollEl = throttle(() => {
       if (pageHeight.length === 0) return
-      const heightTop = window.scrollY + 55
+      const heightTop = window.scrollY + 55 + 35
       if (heightTop < pageHeight[0]) {
         setOutLineOffset(0)
         return
@@ -126,7 +126,7 @@ export default defineComponent({
       if (heightTop > pageHeight[pageHeight.length - 1]) {
         setOutLineOffset(pageHeight.length - 1)
       }
-    }, 300)
+    }, 50)
 
     onMounted(() => {
       window.addEventListener('scroll', scrollEl, false)

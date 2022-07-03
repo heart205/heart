@@ -1,15 +1,27 @@
 interface debounce {
-  timer?: number
   (func: any[]): any
 }
 export const debounce = (func: debounce, timer: number) => {
-  func.timer = new Date().getTime()
+  let time
   return function () {
-    const date = new Date().getTime()
-    if (date - func.timer! < timer) {
+    clearTimeout(time)
+    time = setTimeout(() => {
+      func.apply(this, arguments)
+    }, timer)
+  }
+}
+
+interface throttle {
+  (func: any[]): any
+}
+export const throttle = (func: throttle, timer: number) => {
+  let time = 0
+  return function () {
+    let date = Date.now()
+    if (date - time < timer) {
       return
     }
-    func.timer = date
+    time = date
     return func.apply(this, arguments)
   }
 }
