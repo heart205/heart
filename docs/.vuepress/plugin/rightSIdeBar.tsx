@@ -44,6 +44,10 @@ export default defineComponent({
 
     const isShow = ref<boolean>(false)
 
+    const setOutLineOffset = (i: number) => {
+      scrollTop.value = (i + 1) * 20
+    }
+
     const getPageTitleTop = (title: PageHeader[]) => {
       if (title instanceof Array) {
         title.forEach((val) => {
@@ -63,7 +67,6 @@ export default defineComponent({
       () => route.path,
       (val) => {
         // 改变路由参数
-        // pageHeight.length = 0
         setTimeout(() => {
           nextTick(() => {
             pageHeight.length = 0
@@ -74,15 +77,34 @@ export default defineComponent({
         headers.value = pageData.value.headers
         // 获取页面上所有的h节点
         isShow.value = val !== '/'
+        setOutLineOffset(
+          headers.value.length > 0 && headers.value[0].level !== 1 ? 0 : -1
+        )
       },
       {
         immediate: true,
       }
     )
 
-    const setOutLineOffset = (i: number) => {
-      scrollTop.value = (i + 1) * 20
-    }
+    watch(
+      () => route.hash,
+      (val) => {
+        const index = headers.value.findIndex((t) => {
+          if (isNaN(Number(t.title))) {
+            return `#${t.slug}` === val
+          }
+          return `#_${t.slug}` === val
+        })
+        if (index > -1) {
+          setTimeout(() => {
+            setOutLineOffset(index)
+          }, 0)
+        }
+      },
+      {
+        immediate: true,
+      }
+    )
 
     const scrollEl = () => {
       if (pageHeight.length === 0) return
@@ -106,9 +128,6 @@ export default defineComponent({
 
     onMounted(() => {
       window.addEventListener('scroll', scrollEl, false)
-      setOutLineOffset(
-        headers.value.length > 0 && headers.value[0].level !== 1 ? 0 : -1
-      )
     })
 
     onBeforeUnmount(() => {
@@ -132,7 +151,6 @@ export default defineComponent({
     }
 
     return () => {
-      console.log(scrollTop.value)
       return isShow.value ? (
         <div class="fixed right-side bl-1 ">
           <div
