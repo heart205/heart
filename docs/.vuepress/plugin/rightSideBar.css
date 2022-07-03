@@ -1,0 +1,48 @@
+
+.fixed {
+  position: fixed;
+  right: 0;
+  top: 128px;
+}
+
+.right-side {
+  z-index: 1200;
+  width: 10%;
+  padding: 0 6px;
+}
+
+
+.right-side-title {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.bl-1 {
+  border-left: 1px solid #ddd;
+}
+
+.m-3 {
+  margin-left: 8px;
+}
+
+.right-side-body {
+  color: #585260;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 14px;
+}
+
+.right-side-body:hover {
+   color: var(--c-text-accent);
+}
+
+.outline {
+  width: 1px;
+  height: 16px;
+  position:absolute;
+  background-color: var(--c-text-accent);
+  left: -1px;
+  transition: all .12s ease-out;
+}

@@ -1,7 +1,6 @@
-const { path } = require('@vuepress/utils')
 import { defaultTheme } from 'vuepress'
 export const serviceTheme = (options) => {
-  console.log(options)
+  // console.log(options)
   return {
     name: 'website-theme-heart',
     extends: defaultTheme({

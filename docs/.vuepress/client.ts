@@ -6,10 +6,11 @@
 
 import { defineClientConfig } from '@vuepress/client'
 import Layout from './theme/layout.vue'
+import RightSideBar from './plugin/rightSIdeBar'
 export default defineClientConfig({
   enhance({ app, router, siteData }) {
     app.component('CustomLayout', Layout)
   },
   setup() {},
-  rootComponents: [],
+  rootComponents: [RightSideBar],
 })

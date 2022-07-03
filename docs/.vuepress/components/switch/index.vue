@@ -1,10 +1,11 @@
 <script lang="ts">
 export default {
-  inheritAttrs: false,
+  inheritAttrs: false
 }
 </script>
 <script setup lang="ts">
 // switch
+import type { PropType, CSSProperties } from 'vue'
 import {
   nextTick,
   ref,
@@ -12,19 +13,19 @@ import {
   defineEmits,
   useAttrs,
   watch,
-  reactive,
+  reactive
 } from 'vue'
 const status = ref<boolean>(false)
-type size = 'mini' | 'small' | 'large'
+type size = 'mini' | 'small' | 'default'
 const props = defineProps({
   disabled: {
     type: Boolean,
-    default: false,
+    default: false
   },
   size: {
     type: String as PropType<size>,
-    default: 'small',
-  },
+    default: 'small'
+  }
 })
 
 const emit = defineEmits(['checked', 'update:checked'])
@@ -33,11 +34,15 @@ const attrs: { checked?: boolean } = useAttrs()
 
 const isHaveChecked = ref<boolean>(false)
 
-const style = reactive<{
-  '--fontSize': string
-}>({})
+const style = reactive<
+  {
+    '--fontSize': string
+  } & CSSProperties
+>({
+  '--fontSize': ''
+})
 
-function changeSize(size) {
+function changeSize(size: size) {
   switch (size) {
     case 'mini':
       style['--fontSize'] = '12px'
@@ -51,7 +56,7 @@ function changeSize(size) {
   }
 }
 
-function checkedToStatus(val) {
+function checkedToStatus(val: boolean) {
   status.value = val
 }
 
@@ -87,7 +92,7 @@ watch(
     }
   },
   {
-    immediate: true,
+    immediate: true
   }
 )
 

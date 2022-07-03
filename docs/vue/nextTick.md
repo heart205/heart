@@ -42,7 +42,7 @@ function flushCallbacks() {
   // 恢复等待状态
   pending = false
   // 浅拷贝一份任务队列 并且将任务队列清空
-  // 防止在任务队列的回调函数中如果再调用nextTick函数 导致nextTick执行时机错乱的问题 而且可能会出现一只循环的问题
+  // 防止在任务队列的回调函数中如果再调用nextTick函数 导致nextTick执行时机错乱的问题 而且可能会出现一直循环的问题
   // nextTick 中 在调用 nextTick 此次的nextTick应该在下一次的时机执行
   const copies = callbacks.slice(0)
   callbacks.length = 0
