@@ -40,7 +40,7 @@
 
 .outline {
   width: 1px;
-  height: 16px;
+  height: 17px;
   position:absolute;
   background-color: var(--c-text-accent);
   left: -1px;
