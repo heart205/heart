@@ -29,7 +29,7 @@ interface PageHeader {
 }
 
 export default defineComponent({
-  name: 'test-demo',
+  name: 'right-side-bar',
   setup() {
     /**
      * 判断当前的页面是否是首页 如果不是首页的话获取侧边栏
@@ -53,8 +53,7 @@ export default defineComponent({
     const getPageTitleTop = (title: PageHeader[]) => {
       if (title instanceof Array) {
         title.forEach((val) => {
-          const id = isNaN(Number(val.title)) ? val.title : `_${val.title}`
-          const t = document.getElementById(id)
+          const t = document.getElementById(val.slug)
           if (t) {
             pageHeight.push(t.offsetTop)
           }
@@ -69,19 +68,19 @@ export default defineComponent({
       () => route.path,
       (val) => {
         // 改变路由参数
-        setTimeout(() => {
-          nextTick(() => {
-            pageHeight.length = 0
-            getPageTitleTop(headers.value)
-          })
-        }, 500)
+        pageHeight.length = 0
         title.value = pageData.value.frontmatter.title || defaultTitle
-        headers.value = pageData.value.headers
-        // 获取页面上所有的h节点
         isShow.value = val !== '/'
+        // 获取页面上所有的h节点
+        headers.value = pageData.value.headers
         setOutLineOffset(
           headers.value.length > 0 && headers.value[0].level !== 1 ? 0 : -1
         )
+        setTimeout(() => {
+          nextTick(() => {
+            getPageTitleTop(headers.value)
+          })
+        }, 500)
       },
       {
         immediate: true,
@@ -110,7 +109,7 @@ export default defineComponent({
 
     const scrollEl = throttle(() => {
       if (pageHeight.length === 0) return
-      const heightTop = window.scrollY + 55 + 35
+      const heightTop = window.scrollY + 55
       if (heightTop < pageHeight[0]) {
         setOutLineOffset(0)
         return
@@ -126,7 +125,7 @@ export default defineComponent({
       if (heightTop > pageHeight[pageHeight.length - 1]) {
         setOutLineOffset(pageHeight.length - 1)
       }
-    }, 50)
+    }, 10)
 
     onMounted(() => {
       window.addEventListener('scroll', scrollEl, false)
@@ -154,7 +153,7 @@ export default defineComponent({
 
     return () => {
       return isShow.value ? (
-        <div class="fixed right-side bl-1 ">
+        <div class="fixed right-side bl-1">
           <div
             ref={outLineRef}
             class="outline"

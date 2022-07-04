@@ -9,7 +9,13 @@
   width: 10%;
   padding: 0 6px;
 }
-
+.right-side-title,
+.right-side-body {
+  white-space: nowrap;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 .right-side-title {
   font-weight: 600;
   font-size: 14px;
@@ -27,8 +33,6 @@
   color: #585260;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   font-size: 14px;
 }
 
