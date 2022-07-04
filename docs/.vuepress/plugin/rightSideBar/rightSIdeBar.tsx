@@ -10,14 +10,13 @@ import {
   ref,
   onMounted,
   onBeforeUnmount,
-  nextTick,
 } from 'vue'
 
 import { usePageData } from '@vuepress/client'
 
 import { useRoute, useRouter } from 'vue-router'
 
-import { throttle } from '../../utils/index'
+import { debounce } from '../../utils/index'
 
 import './rightSideBar.css'
 
@@ -45,6 +44,8 @@ export default defineComponent({
     const scrollTop = ref<number>(0)
 
     const isShow = ref<boolean>(false)
+
+    let isHash = false
 
     const setOutLineOffset = (i: number) => {
       scrollTop.value = (i + 1) * 20
@@ -77,9 +78,8 @@ export default defineComponent({
           headers.value.length > 0 && headers.value[0].level !== 1 ? 0 : -1
         )
         setTimeout(() => {
-          nextTick(() => {
-            getPageTitleTop(headers.value)
-          })
+          // 获取dom节点
+          getPageTitleTop(headers.value)
         }, 500)
       },
       {
@@ -97,9 +97,8 @@ export default defineComponent({
           return `#_${t.slug}` === val
         })
         if (index > -1) {
-          setTimeout(() => {
-            setOutLineOffset(index)
-          }, 0)
+          isHash = true
+          setOutLineOffset(index)
         }
       },
       {
@@ -107,8 +106,11 @@ export default defineComponent({
       }
     )
 
-    const scrollEl = throttle(() => {
-      if (pageHeight.length === 0) return
+    const scrollEl = debounce(() => {
+      if (isHash || pageHeight.length === 0) {
+        isHash = false
+        return
+      }
       const heightTop = window.scrollY + 55
       if (heightTop < pageHeight[0]) {
         setOutLineOffset(0)
@@ -125,7 +127,7 @@ export default defineComponent({
       if (heightTop > pageHeight[pageHeight.length - 1]) {
         setOutLineOffset(pageHeight.length - 1)
       }
-    }, 10)
+    }, 100)
 
     onMounted(() => {
       window.addEventListener('scroll', scrollEl, false)
