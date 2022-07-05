@@ -12,8 +12,6 @@ layout: CustomLayout
 
 - [algorithm](./algorithm/)
 
-- [vue](./vue)
-
 - [vuePress](./vuepress/)
 
 - [react](./react)

@@ -1,48 +1,70 @@
 <script setup lang="ts">
 import type { CSSProperties } from 'vue'
-import { ref } from 'vue'
-import { defineProps, defineEmits, watch, reactive } from 'vue'
-const props = defineProps({
-  value: {
-    type: [Number, String],
-    default: 0
-  },
-  disabled: {
-    type: Boolean,
-    default: false
-  },
-  min: {
-    type: Number,
-    default: 0
-  },
-  max: {
-    type: Number,
-    default: 100
-  },
-  step: {
-    type: Number,
-    default: 1
-  },
-  isShowTips: {
-    type: Boolean,
-    default: false
-  },
-  prefix: {
-    type: String,
-    default: ''
-  },
-  suffix: {
-    type: String,
-    default: ''
-  },
-  // TODO: 垂直滑动
-  vertical: {
-    type: Boolean,
-    default: false
-  }
+import Tips from './tips.vue'
+import { ref, onMounted } from 'vue'
+import { defineProps, defineEmits, watch, reactive, withDefaults } from 'vue'
+interface props {
+  value: string | number
+  disabled?: boolean
+  min?: number
+  max?: number
+  step?: number
+  isShowTips: boolean
+  prefix?: string
+  suffix?: string
+}
+const props = withDefaults(defineProps<props>(), {
+  value: 0,
+  disabled: false,
+  min: 0,
+  max: 100,
+  step: 1,
+  isShowTips: false,
+  prefix: '',
+  suffix: '',
 })
+// const props = defineProps({
+//   value: {
+//     type: [Number, String],
+//     default: 0,
+//   },
+//   disabled: {
+//     type: Boolean,
+//     default: false,
+//   },
+//   min: {
+//     type: Number,
+//     default: 0,
+//   },
+//   max: {
+//     type: Number,
+//     default: 100,
+//   },
+//   step: {
+//     type: Number,
+//     default: 1,
+//   },
+//   isShowTips: {
+//     type: Boolean,
+//     default: false,
+//   },
+//   prefix: {
+//     type: String,
+//     default: '',
+//   },
+//   suffix: {
+//     type: String,
+//     default: '',
+//   },
+//   // TODO: 垂直滑动
+//   vertical: {
+//     type: Boolean,
+//     default: false,
+//   },
+// })
 
 const emit = defineEmits(['update:value', 'change', 'finish'])
+const inputRef = ref<HTMLInputElement>(null)
 
 const style = reactive<
   {
@@ -53,7 +75,7 @@ const style = reactive<
 >({
   '--width': '0%',
   '--slider-btn-bg-color': '',
-  '--slider-btn-color': ''
+  '--slider-btn-color': '',
 })
 function handleInput(event: Event) {
   const data = (event?.target as HTMLInputElement)?.value || 0
@@ -66,6 +88,11 @@ function handleChange(event: Event) {
   const data = (event?.target as HTMLInputElement)?.value || 0
   Number(data) === props.max ? emit('finish', data) : emit('change', data)
 }
+const width = ref(0)
+
+onMounted(() => {
+  width.value = inputRef.value.getBoundingClientRect().width
+})
 
 watch(
   () => props.value,
@@ -80,7 +107,7 @@ watch(
   (val) => {
     const disabledStyleVariable = [
       '--slider-btn-color',
-      '--slider-btn-bg-color'
+      '--slider-btn-bg-color',
     ] as const
     if (val) {
       const disabledColor = '#999'
@@ -97,21 +124,25 @@ watch(
 </script>
 
 <template>
-  <div :class="[props.vertical ? 'slider-vertical' : '']">
+  <div class="slider-wrapper">
     <input
+      ref="inputRef"
       type="range"
       class="slider"
       :disabled="props.disabled"
-      :style="style"
       :value="props.value"
+      :style="style"
       :min="props.min"
       :max="props.max"
-      :step="props.step"
-      :tips="isShowTips ? tips : null"
-      :prefix-icon="prefix"
-      :suffix-icon="suffix"
       @input="handleInput"
       @change="handleChange"
+    />
+    <Tips
+      v-if="isShowTips"
+      :value="tips"
+      :widthTotal="width"
+      :suffix="suffix"
+      :prefix="prefix"
     />
   </div>
 </template>
@@ -139,50 +170,6 @@ input.slider {
     background-color: @focus-background-color;
     /*设置边框*/
     border: solid 2px var(--slider-btn-color);
-  }
-
-  // content 本身不支持var变量的形式
-  // counter-reset: 计数器的形式只能保持初始值
-  &::after,
-  &::before {
-    // counter-reset: progress var(--tips, '1');
-    // content: counter(progress);
-    position: absolute;
-    left: var(--width);
-    opacity: 0;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    pointer-events: none;
-  }
-
-  &::after {
-    content: attr(prefix-icon) attr(tips) attr(suffix-icon);
-    background: rgba(0, 0, 0, 0.3);
-    transform: translateX(-35%) translateY(-10%);
-    padding: 3px 6px;
-    top: 1em;
-  }
-
-  &::before {
-    content: '';
-    border: 4px solid transparent;
-    border-color: rgba(0, 0, 0, 0.3) transparent transparent transparent;
-    top: 2.58em;
-    transform: translateY(-30%);
-  }
-
-  &[tips]:hover {
-    &::after,
-    &::before {
-      opacity: 1;
-    }
-
-    &::after {
-      transform: translateX(-35%) translateY(0%);
-    }
-
-    &::before {
-      transform: translateY(0%);
-    }
   }
 
   /*拖动块的样式*/
@@ -216,6 +203,18 @@ input.slider {
     );
     // 背景颜色
     background-color: var(--disabled-color);
+  }
+}
+
+.slider-wrapper {
+  position: relative;
+}
+</style>
+
+<style lang="less">
+.slider-wrapper:hover {
+  .tips {
+    opacity: 1;
   }
 }
 </style>

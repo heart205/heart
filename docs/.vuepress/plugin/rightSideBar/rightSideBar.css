@@ -33,7 +33,7 @@ html {
 }
 
 .right-side-body {
-  color: #585260;
+  color: var(--c-text);
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   font-size: 14px;
@@ -45,7 +45,7 @@ html {
 
 .outline {
   width: 1px;
-  height: 18px;
+  height: 20px;
   position: absolute;
   background-color: var(--c-text-accent);
   left: -1px;

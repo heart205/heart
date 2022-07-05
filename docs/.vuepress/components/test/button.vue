@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref} from 'vue'
-import Button from '../button/button.vue'
+import HButton from '../button/button.vue'
 import Switch from '../switch/index.vue'
 
 const toggleClick = ref<boolean>(false)
@@ -14,11 +14,11 @@ const toggleClick = ref<boolean>(false)
     </span>
     <Switch v-model:checked="toggleClick"> toggle disabled </Switch>
   </div>
-  <Button type="primary" :disabled="toggleClick"> primary </Button>
-  <Button type="dashed" :disabled="toggleClick"> dashed </Button>
-  <Button type="flat" :disabled="toggleClick"> flat </Button>
-  <Button type="danger" :disabled="toggleClick"> danger </Button>
-  <Button :disabled="toggleClick"> default </Button>
+  <HButton type="primary" :disabled="toggleClick"> primary </HButton>
+  <HButton type="dashed" :disabled="toggleClick"> dashed </HButton>
+  <HButton type="flat" :disabled="toggleClick"> flat </HButton>
+  <HButton type="danger" :disabled="toggleClick"> danger </HButton>
+  <HButton :disabled="toggleClick"> default </HButton>
   </p>
 </template>
 

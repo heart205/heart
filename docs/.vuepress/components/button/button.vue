@@ -14,9 +14,9 @@ type size = 'mini' | 'small' | 'default' | number
 
 type classBtnType = typeClick extends typeClick ? `btn-${typeClick}` : never
 interface Props {
-  type: typeClick
-  disabled: boolean
-  size: size
+  type?: typeClick
+  disabled?: boolean
+  size?: size
 }
 
 const clickType = ref<classBtnType>()
