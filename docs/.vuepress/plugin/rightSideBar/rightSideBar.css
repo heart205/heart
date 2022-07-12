@@ -37,6 +37,8 @@ html {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   font-size: 14px;
+  min-height: 20px;
+  vertical-align: middle;
 }
 
 .right-side-body:hover {

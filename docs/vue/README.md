@@ -16,4 +16,4 @@ title: vue guide
 
 
 
--[vue 源码揭秘电子书](https://ustbhuangyi.github.io/vue-analysis/)
+- [vue 源码揭秘电子书](https://ustbhuangyi.github.io/vue-analysis/)
