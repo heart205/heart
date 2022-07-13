@@ -80,6 +80,16 @@ export default () => {
 ```
 
 
+
+## useLayoutEffect
+> 使用方式与`useEffect` 相同 不同的是`useEffect` 在浏览器渲染之后执行 `useLayoutEffect` 在浏览器渲染之前执行。
+
+> `useEffect` 是异步执行的，而 `useLayoutEffect` 是同步执行的
+
+> 在任何导致组件重新渲染，而且又要改变 DOM 的情况下都是 useLayoutEffect 的使用场景
+
+> useLayoutEffect 也不能多用，且使用时同步操作时长不能过长，不然会给用户带来明显的卡顿。
+
 ## useCallback
 
 ```tsx
@@ -283,3 +293,73 @@ const Reducer = () => {
 export default Reducer
 
 ```
+
+## useRef
+
+获取子组件的实例对象
+
+```tsx
+import React, { useRef,useEffect } from 'react'
+export default () => {
+  const ref = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    // code ...
+  ref.current
+  },[])
+  return <input ref={ref} />
+}
+```
+
+
+## useImperativeHandle
+
+`useImperativeHandle` 使用 ref 时自定义暴露给父组件的实例值 一般会与 `forwardRef` 一起使用
+```tsx
+import React, { useRef, useState, useImperativeHandle } from 'react'
+
+interface inter {
+  value: string
+  setValue: React.Dispatch<React.SetStateAction<string>>
+}
+
+const Child = React.forwardRef<inter>((props, ref) => {
+  const [value, setValue] = useState('1')
+
+  const inputRef = useRef<HTMLInputElement>(null)
+  useImperativeHandle<inter, inter>(ref, () => ({
+    setValue,
+    value,
+    input: inputRef.current,
+  }))
+
+  return <input value={value} ref={inputRef} />
+})
+
+export default () => {
+  const ref = useRef<inter>(null)
+  return <Child ref={ref} />
+}
+```
+
+## useContext
+
+
+
+# React Redux Hooks
+
+
+## useSelector
+
+
+## useDispatch
+
+# React Router Hooks
+
+## useHistory
+
+## useLocation
+
+## useParams
+
+## useRouteMatch
