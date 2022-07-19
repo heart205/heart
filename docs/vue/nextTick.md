@@ -171,7 +171,7 @@ export function nextTick(cb?: (...args: any[]) => any, ctx?: object) {
 ```
 
 
-## 参考文献
+## 参考资料
 [nextTick实现原理](https://juejin.cn/post/7087866362785169416)
 
 

@@ -2,7 +2,7 @@
 import type { CSSProperties } from 'vue'
 import Tips from './tips.vue'
 import { ref, onMounted } from 'vue'
-import { defineProps, defineEmits, watch, reactive, withDefaults } from 'vue'
+import {  watch, reactive, withDefaults } from 'vue'
 interface props {
   value: string | number
   disabled?: boolean

@@ -9,8 +9,6 @@ import type { PropType, CSSProperties } from 'vue'
 import {
   nextTick,
   ref,
-  defineProps,
-  defineEmits,
   useAttrs,
   watch,
   reactive

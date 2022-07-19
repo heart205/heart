@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import type { CSSProperties } from 'vue'
 import {
-  defineEmits,
-  defineProps,
   onMounted,
   reactive,
   withDefaults,

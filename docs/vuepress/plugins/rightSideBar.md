@@ -28,7 +28,7 @@ defineClientConfig({
 
 @[code css](../../.vuepress/plugin/rightSideBar/rightSideBar.css)
 
-## 参考文献：
+## 参考资料：
 
 - [plugin-vue-jsx](https://github.com/vitejs/vite/tree/main/packages/plugin-vue-jsx)
 
