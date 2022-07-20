@@ -3,22 +3,11 @@
  * @description 右边侧边栏插件以及高亮
  * @Date 2022-07-02
  */
-
-import {
-  defineComponent,
-  watch,
-  ref,
-  onMounted,
-  onBeforeUnmount,
-} from 'vue'
-
-import { usePageData } from '@vuepress/client'
-
-import { useRoute, useRouter } from 'vue-router'
-
-import { debounce } from '../../utils/index'
-
 import './rightSideBar.css'
+import { usePageData } from '@vuepress/client'
+import { useRoute, useRouter } from 'vue-router'
+import { debounce } from '../../utils/index'
+import { defineComponent, watch, ref, onMounted, onBeforeUnmount } from 'vue'
 
 interface PageHeader {
   level: number
@@ -30,9 +19,7 @@ interface PageHeader {
 export default defineComponent({
   name: 'right-side-bar',
   setup() {
-    /**
-     * 判断当前的页面是否是首页 如果不是首页的话获取侧边栏
-     */
+    /** 判断当前的页面是否是首页 如果不是首页的话获取侧边栏 */
     const defaultTitle = 'heart'
     const pageData = usePageData()
     const headers = ref<PageHeader[]>([])
@@ -42,15 +29,11 @@ export default defineComponent({
     const outLineRef = ref<HTMLDivElement>()
     const pageHeight: number[] = []
     const scrollTop = ref<number>(0)
-
     const isShow = ref<boolean>(false)
-
     let isHash = false
-
     const setOutLineOffset = (i: number) => {
       scrollTop.value = (i + 1) * 20
     }
-
     const getPageTitleTop = (title: PageHeader[]) => {
       if (title instanceof Array) {
         title.forEach((val) => {
@@ -68,17 +51,17 @@ export default defineComponent({
     watch(
       () => route.path,
       (val) => {
-        // 改变路由参数
+        /** 改变路由参数 */
         pageHeight.length = 0
         title.value = pageData.value.frontmatter.title || defaultTitle
         isShow.value = val !== '/'
-        // 获取页面上所有的h节点
+        /** 获取页面上所有的h节点 */
         headers.value = pageData.value.headers
         setOutLineOffset(
           headers.value.length > 0 && headers.value[0].level !== 1 ? 0 : -1
         )
         setTimeout(() => {
-          // 获取dom节点
+          /** 获取dom节点 */
           getPageTitleTop(headers.value)
         }, 500)
       },
@@ -111,23 +94,24 @@ export default defineComponent({
         isHash = false
         return
       }
+
       const heightTop = window.scrollY + 55
+
       if (heightTop < pageHeight[0]) {
         setOutLineOffset(0)
         return
       }
-      // i - length - 1
-      for (let i = 1; i < pageHeight.length - 1; i++) {
-        if (heightTop > pageHeight[i - 1] && heightTop < pageHeight[i + 1]) {
-          setOutLineOffset(i)
-          return
+
+      for (let i = 0; i < pageHeight.length; i++) {
+        if (heightTop <= pageHeight[i]) {
+          setOutLineOffset(i - 1)
         }
       }
 
       if (heightTop > pageHeight[pageHeight.length - 1]) {
         setOutLineOffset(pageHeight.length - 1)
       }
-    }, 100)
+    }, 0)
 
     onMounted(() => {
       window.addEventListener('scroll', scrollEl, false)
@@ -137,7 +121,7 @@ export default defineComponent({
       window.removeEventListener('scroll', scrollEl, false)
     })
 
-    const handleToLink = (value) => {
+    const handleToLink = (value: PageHeader) => {
       router.push(`#${value.slug}`)
     }
 
@@ -157,7 +141,7 @@ export default defineComponent({
       return isShow.value ? (
         <div class="fixed right-side bl-1">
           <div
-            ref={outLineRef}
+            ref={'outLineRef'}
             class="outline"
             style={`transform:translateY(${scrollTop.value}px)`}
           ></div>

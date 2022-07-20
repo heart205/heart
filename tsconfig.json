@@ -96,7 +96,8 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
   "include": [
-    "**/docs/**/*",
+    "docs/**/*",
+    "docs/.vuepress/*"
   ],
   "exclude": []
 }
