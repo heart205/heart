@@ -32,7 +32,7 @@ Object.getOwnPropertyDescriptor() 方法返回指定对象上一个自有属性�
 
 ## getOwnPropertyNames
 
-Object.getOwnPropertyNames() 返回一个数组，该数组对元素是 obj自身拥有的枚举或不可枚举属性名称字符串
+Object.getOwnPropertyNames() 返回一个数组，该数组对元素是 obj自身拥有的枚举或不可枚举属性名称字符串(但是不包括`Symbol`值作为名称的属性)
 > for in 会遍历原型链上的属性 `无序遍历对象的可枚举属性。语句针对每个唯一的属性`
 
 
@@ -46,3 +46,22 @@ Object.getOwnPropertyNames() 返回一个数组，该数组对元素是 obj自�
 
 ## propertyIsEnumerable
 propertyIsEnumerable() 方法返回一个布尔值，表示指定的属性是否可枚举。
+
+
+
+## Object.entities
+返回与for in 遍历相同顺序的 key value 组成的二维数组(不会遍历原型链 for in 会遍历原型链)
+
+## Object.freeze
+冻结对象
+如果一个属性的值是个对象，则这个对象中的属性是可以修改的，除非它也是个冻结对象。
+> [对象冻结](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
+
+## Object.isFrozen
+对象是否被冻结
+
+## Object.getPrototypeOf
+返回指定对象的原型
+
+## Object.keys()
+返回一个由一个给定对象的自身可枚举属性组成的数组，数组中属性名的排列顺序和正常循环遍历该对象时返回的顺序一致

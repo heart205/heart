@@ -1,6 +1,5 @@
 import { defaultTheme } from 'vuepress'
-export const serviceTheme = (options) => {
-  // console.log(options)
+export const serviceTheme = () => {
   return {
     name: 'website-theme-heart',
     extends: defaultTheme({

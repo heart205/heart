@@ -26,7 +26,6 @@ export default defineComponent({
     const title = ref(defaultTitle)
     const route = useRoute()
     const router = useRouter()
-    const outLineRef = ref<HTMLDivElement>()
     const pageHeight: number[] = []
     const scrollTop = ref<number>(0)
     const isShow = ref<boolean>(false)
@@ -126,7 +125,7 @@ export default defineComponent({
     }
 
     const loop = (value: PageHeader) => {
-      // 根据值去递归
+      /** 根据值去递归 */
       return (
         <div class="m-3 right-side-body" onClick={() => handleToLink(value)}>
           {value.title}
@@ -141,7 +140,6 @@ export default defineComponent({
       return isShow.value ? (
         <div class="fixed right-side bl-1">
           <div
-            ref={'outLineRef'}
             class="outline"
             style={`transform:translateY(${scrollTop.value}px)`}
           ></div>
